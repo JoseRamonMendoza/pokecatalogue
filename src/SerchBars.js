@@ -8,11 +8,11 @@ class SerchBars extends React.Component {
     }
 
     handleSherchByName(e){
-
+      this.props.onFilterNameChange(e.target.value);
     }
 
     handleSherchById(e){
-
+      this.props.onFilterIdChange(e.target.value);
     }
 
         render() {
@@ -20,7 +20,7 @@ class SerchBars extends React.Component {
               <form>
                 <input
                   type="text"
-                  placeholder="Search pokemon by name..."
+                  placeholder="Search by name"
                   value={this.props.filterName}
                   onChange={this.handleSherchByName}
                 />
@@ -29,8 +29,8 @@ class SerchBars extends React.Component {
                     type="number"
                     value={this.props.filterId}
                     min={1}
-                    max={1117}
-                    placeholder="Serch pokemon by number..."
+                    max={10219}
+                    placeholder="Serch by ID"
                     onChange={this.handleSherchById}
                   />
                 </p>

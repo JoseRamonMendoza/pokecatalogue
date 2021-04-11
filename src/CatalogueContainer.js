@@ -1,4 +1,5 @@
 import React from 'react';
+
 // Dependecies
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
@@ -22,24 +23,41 @@ class CatalogueContainer extends React.Component {
             fullPokeJson: null,
         };
         this.handlePageClick = this.handlePageClick.bind(this);
+        this.handleFilterNameChange = this.handleFilterNameChange.bind(this);
+        this.handleFilterIdChange = this.handleFilterIdChange.bind(this);
     }
+
+    
+    receivedData() {
+        if (this.state.fullPokeJson === null) {
+            axios.get('https://pokeapi.co/api/v2/pokemon?limit=-1&offset=0')
+            .then(response => {
+                const data = response.data;
+                this.setState({
+                    fullPokeJson: data,
+                })
+                
+                this.analizeFullPokeJson();
+            })
+        } else {
+            this.analizeFullPokeJson();
+        }
+    }
+
 
     analizeFullPokeJson() {
         let i = this.state.currentPage * this.state.perPage;
         let count = i + this.state.perPage < this.state.fullPokeJson.count-1 ? i + this.state.perPage : this.state.fullPokeJson.count-1;
 
-        const pokeData = [];
-
+        const postData = [];
         for (i; i < count; i++) {
             axios.get(this.state.fullPokeJson.results[i].url)
                 .then(response => {
-                    pokeData.push(response.data);
-
-                    const postData = pokeData.map(item =>
-                        <React.Fragment key={item.id}>
-                            <GeneralViewPokemon pokeJson={item} />
-                        </React.Fragment>)
-                    console.log(postData)
+                    postData.push(
+                        <React.Fragment key={response.data.id}>
+                            <GeneralViewPokemon pokeJson={response.data} />
+                        </React.Fragment>
+                    );
 
                     this.setState({
                         pageCount: Math.ceil(this.state.fullPokeJson.count / this.state.perPage),
@@ -51,25 +69,23 @@ class CatalogueContainer extends React.Component {
 
     }
 
-    receivedData() {
-        if (this.state.fullPokeJson === null) {
-            axios.get('https://pokeapi.co/api/v2/pokemon?limit=-1&offset=0')
-                .then(response => {
-                    const data = response.data;
-                    this.setState({
-                        fullPokeJson: data,
-                    })
-
-                    this.analizeFullPokeJson();
-                })
-        } else {
-            this.analizeFullPokeJson();
-        }
-
-
+    handleFilterIdChange(filterId){
+        this.setState({
+            filterId: filterId,
+            filterName: "",
+        })
     }
 
-    handlePageClick = (e) => {
+
+    handleFilterNameChange(filterName){
+        this.setState({
+            filterName: filterName,
+            filterId: "",
+        })
+    }
+
+
+    handlePageClick(e){
         this.setState({
             currentPage: e.selected,
         }, () => {
@@ -77,9 +93,11 @@ class CatalogueContainer extends React.Component {
         });
     };
 
+
     componentDidMount() {
         this.receivedData();
     }
+
 
     render() {
         return (
