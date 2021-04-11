@@ -1,4 +1,4 @@
-export default function FanciJumbotron(props){
+export default function FancyJumbotron(props){
     return (
         <div className="jumbotron">
             <h1 className="display-4">Catalogo de Pokemones</h1>

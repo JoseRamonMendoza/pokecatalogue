@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
 // Dependecies
 import axios from 'axios';
@@ -9,8 +9,9 @@ import './css/main.min.css';
 
 // Personal Components
 import GeneralViewPokemon from './GeneralViewPokemon';
-import FanciJumbotron from './FanciJumbotron';
+import FancyJumbotron from './FancyJumbotron';
 import SerchBars from './SerchBars';
+import DetailViewPokemon from './DetailViewPokemon';
 
 class CatalogueContainer extends React.Component {
     constructor(props) {
@@ -23,7 +24,7 @@ class CatalogueContainer extends React.Component {
         };
         this.handlePageClick = this.handlePageClick.bind(this);
         this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
-        this.handleButtonAction = this.handleButtonAction.bind(this);
+        this.handleSearchAction = this.handleSearchAction.bind(this);
     }
 
 
@@ -54,24 +55,44 @@ class CatalogueContainer extends React.Component {
                 .then(response => {
                     postData.push(
                         <React.Fragment key={response.data.id}>
-                            <GeneralViewPokemon pokeJson={response.data} />
+                            <GeneralViewPokemon
+                                pokeJson={response.data}
+                            />
                         </React.Fragment>
                     );
 
-                    postData.sort((a, b) => a.key - b.key)
+                    postData.sort((a, b) => a.key - b.key);
 
                     this.setState({
                         pageCount: Math.ceil(this.state.fullPokeJson.count / this.state.perPage),
-
-                        postData
-                    })
-                })
-        }
+                        postData,
+                    });
+                });
+        };
 
     }
 
-    handleButtonAction(e) {
+    handleSearchAction() {
+        if (this.state.filterText !== '') {
 
+            axios.get(`https://pokeapi.co/api/v2/pokemon/${this.state.filterText}`)
+                .then(response => {
+
+                    const postData = <React.Fragment>
+                        <DetailViewPokemon pokeJson={response.data} />
+                    </React.Fragment>
+
+                    this.setState({
+                        pageCount: 1,
+                        postData,
+                    })
+                })
+                .catch(error => {
+                    alert(`No encontrad en la base de datos error: ${error}`)
+                })
+        } else {
+            this.analizeFullPokeJson();
+        }
     }
 
 
@@ -98,18 +119,18 @@ class CatalogueContainer extends React.Component {
 
     render() {
         return (
-            <FanciJumbotron>
+            <FancyJumbotron>
 
 
                 <SerchBars
                     filterText={this.state.filterText}
                     onFilterTextChange={this.handleFilterTextChange}
-                    onButtonAction={this.handleButtonAction}
+                    onSearchAction={this.handleSearchAction}
                 />
 
 
                 <div className="row">
-                    {this.state.postData}
+                        {this.state.postData}
                 </div>
                 <div className="row">
                     <ReactPaginate
@@ -125,7 +146,7 @@ class CatalogueContainer extends React.Component {
                         subContainerClassName={"pages pagination"}
                         activeClassName={"active"} />
                 </div>
-            </FanciJumbotron>
+            </FancyJumbotron>
         )
     }
 }

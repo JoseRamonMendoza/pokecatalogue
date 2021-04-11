@@ -4,22 +4,26 @@ class SerchBars extends React.Component {
   constructor(props) {
     super(props);
     this.handleTextChange = this.handleTextChange.bind(this);
-    this.handleButtonAction = this.handleButtonAction.bind(this);
+    this.handleSubmitAction = this.handleSubmitAction.bind(this);
   }
 
   handleTextChange(e) {
     this.props.onFilterTextChange(e.target.value);
   }
 
-  handleButtonAction(e) {
-    this.props.onButtonAction(e);
+  handleSubmitAction(e) {
+    e.preventDefault();
+    this.props.onSearchAction(e);
   }
 
   render() {
     return (
-      <nav class="col-12 navbar navbar-light bg-light rounded mb-2">
-        <form className="col-12">
-          <div class="row justify-content-between">
+      <nav className="col-12 navbar navbar-light bg-light rounded mb-2">
+        <form 
+          className="col-12"
+          onSubmit={this.handleSubmitAction}
+        >
+          <div className="row justify-content-between">
 
             <input
               className="col-7 m-2 form-control mr-sm-2"
@@ -30,8 +34,7 @@ class SerchBars extends React.Component {
             />
             <button
               className="col-3 m-2 btn btn-outline-success"
-              type="button"
-              onChange={this.handleButtonAction}
+              type="submit"
             >Search</button>
           </div>
         </form>
