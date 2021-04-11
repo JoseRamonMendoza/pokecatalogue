@@ -18,27 +18,26 @@ class CatalogueContainer extends React.Component {
         this.state = {
             perPage: 18,
             currentPage: 0,
-            filterName: '',
-            filterId: '',
+            filterText: '',
             fullPokeJson: null,
         };
         this.handlePageClick = this.handlePageClick.bind(this);
-        this.handleFilterNameChange = this.handleFilterNameChange.bind(this);
-        this.handleFilterIdChange = this.handleFilterIdChange.bind(this);
+        this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+        this.handleButtonAction = this.handleButtonAction.bind(this);
     }
 
-    
+
     receivedData() {
         if (this.state.fullPokeJson === null) {
             axios.get('https://pokeapi.co/api/v2/pokemon?limit=-1&offset=0')
-            .then(response => {
-                const data = response.data;
-                this.setState({
-                    fullPokeJson: data,
+                .then(response => {
+                    const data = response.data;
+                    this.setState({
+                        fullPokeJson: data,
+                    })
+
+                    this.analizeFullPokeJson();
                 })
-                
-                this.analizeFullPokeJson();
-            })
         } else {
             this.analizeFullPokeJson();
         }
@@ -47,7 +46,7 @@ class CatalogueContainer extends React.Component {
 
     analizeFullPokeJson() {
         let i = this.state.currentPage * this.state.perPage;
-        let count = i + this.state.perPage < this.state.fullPokeJson.count-1 ? i + this.state.perPage : this.state.fullPokeJson.count-1;
+        let count = i + this.state.perPage < this.state.fullPokeJson.count - 1 ? i + this.state.perPage : this.state.fullPokeJson.count - 1;
 
         const postData = [];
         for (i; i < count; i++) {
@@ -59,6 +58,8 @@ class CatalogueContainer extends React.Component {
                         </React.Fragment>
                     );
 
+                    postData.sort((a, b) => a.key - b.key)
+
                     this.setState({
                         pageCount: Math.ceil(this.state.fullPokeJson.count / this.state.perPage),
 
@@ -69,23 +70,19 @@ class CatalogueContainer extends React.Component {
 
     }
 
-    handleFilterIdChange(filterId){
+    handleButtonAction(e) {
+
+    }
+
+
+    handleFilterTextChange(filterText) {
         this.setState({
-            filterId: filterId,
-            filterName: "",
+            filterText: filterText,
         })
     }
 
 
-    handleFilterNameChange(filterName){
-        this.setState({
-            filterName: filterName,
-            filterId: "",
-        })
-    }
-
-
-    handlePageClick(e){
+    handlePageClick(e) {
         this.setState({
             currentPage: e.selected,
         }, () => {
@@ -103,14 +100,13 @@ class CatalogueContainer extends React.Component {
         return (
             <FanciJumbotron>
 
-                <div className="row">
-                    <SerchBars
-                        filterName={this.state.filterName}
-                        filterId={this.state.filterId}
-                        onFilterNameChange={this.handleFilterNameChange}
-                        onFilterIdChange={this.handleFilterIdChange}
-                    />
-                </div>
+
+                <SerchBars
+                    filterText={this.state.filterText}
+                    onFilterTextChange={this.handleFilterTextChange}
+                    onButtonAction={this.handleButtonAction}
+                />
+
 
                 <div className="row">
                     {this.state.postData}
