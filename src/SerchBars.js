@@ -29,7 +29,7 @@ class SerchBars extends React.Component {
               className="col-7 m-2 form-control mr-sm-2"
               type="text"
               placeholder="Search"
-              value={this.props.filterText.trim().toLowerCase().replace(/[^\w|-]/, '')}
+              value={String(this.props.filterText).trim().toLowerCase().replace(/[^\w|-]/, '')}
               onChange={this.handleTextChange}
             />
             <button

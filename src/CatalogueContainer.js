@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 
 // Dependecies
 import axios from 'axios';
@@ -57,6 +57,8 @@ class CatalogueContainer extends React.Component {
                         <React.Fragment key={response.data.id}>
                             <GeneralViewPokemon
                                 pokeJson={response.data}
+                                onFilterTextChange={this.handleFilterTextChange}
+                                onSearchAction={this.handleSearchAction}
                             />
                         </React.Fragment>
                     );
@@ -79,11 +81,13 @@ class CatalogueContainer extends React.Component {
                 .then(response => {
 
                     const postData = <React.Fragment>
-                        <DetailViewPokemon pokeJson={response.data} />
+                        <DetailViewPokemon 
+                            pokeJson={response.data} 
+                        />
                     </React.Fragment>
 
                     this.setState({
-                        pageCount: 1,
+                        pageCount: null,
                         postData,
                     })
                 })
@@ -133,7 +137,8 @@ class CatalogueContainer extends React.Component {
                         {this.state.postData}
                 </div>
                 <div className="row">
-                    <ReactPaginate
+                    {   this.state.pageCount &&
+                        <ReactPaginate
                         previousLabel={"prev"}
                         nextLabel={"next"}
                         breakLabel={"..."}
@@ -145,6 +150,7 @@ class CatalogueContainer extends React.Component {
                         containerClassName={"pagination d-flex justify-content-center"}
                         subContainerClassName={"pages pagination"}
                         activeClassName={"active"} />
+                    }
                 </div>
             </FancyJumbotron>
         )

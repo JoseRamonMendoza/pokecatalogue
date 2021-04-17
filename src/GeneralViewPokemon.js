@@ -1,15 +1,28 @@
 import React from 'react';
 
 class GeneralViewPokemon extends React.Component {
+    constructor(props){
+        super(props);
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick(){
+        this.props.onFilterTextChange(this.props.pokeJson.id);
+        setTimeout(() => {this.props.onSearchAction()}, 1);
+    }
+
     render() {
         const pokeJson = this.props.pokeJson;
         const types = pokeJson.types.map(item => " " + item.type.name);
         return (
-            <div className="col-12 col-sm-6 col-md-4 col-xl-2 d-flex justify-content-center" id={pokeJson.id} key={pokeJson.id}>
+            <div className="col-12 col-sm-6 col-md-4 col-xl-2 d-flex justify-content-center" 
+                id={pokeJson.id} 
+                key={pokeJson.id}
+                onClick={this.handleClick}
+            >
                 <div 
                     className='card m-1' 
-                    style={{ width: '11rem', backgroundColor: '#F0F0C9' }}
-                    
+                    id="generalViewPokemonDiv"
                 >
                     <img className="card-img-top text-center" src={pokeJson.sprites.front_default} alt={`${pokeJson.name}.png`} />
                     <div className="card-body">
