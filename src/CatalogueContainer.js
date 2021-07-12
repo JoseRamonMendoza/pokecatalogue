@@ -92,7 +92,7 @@ class CatalogueContainer extends React.Component {
                     })
                 })
                 .catch(error => {
-                    alert(`No encontrad en la base de datos error: ${error}`)
+                    alert(`No encontrado en la base de datos, error: ${error}`)
                 })
         } else {
             this.analizeFullPokeJson();
