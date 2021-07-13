@@ -1,5 +1,8 @@
 import React from 'react';
 
+// componente encargado de presentar la descripción de un pokemon
+// este componente indica la visualización de un pokemon cuando se busca
+// o cuando se selecciona sobre su 'carta'
 class DetailViewPokemon extends React.Component {
     render() {
         const pokeJson = this.props.pokeJson;

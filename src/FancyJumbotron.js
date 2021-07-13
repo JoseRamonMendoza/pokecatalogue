@@ -1,3 +1,5 @@
+// un elemento Jumbotron de Bootstrap que sirve como componente
+// que engloba a los demas y da la apariencia base a la página
 export default function FancyJumbotron(props){
     return (
         <div className="jumbotron">

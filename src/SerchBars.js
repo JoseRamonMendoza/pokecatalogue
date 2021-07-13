@@ -1,5 +1,13 @@
+// Componente de barra de busqueda
 import React from 'react';
 
+/**
+ * componente que engloba la barra de texto y el botón de busqueda,
+ * este componente solo maneja los eventos del padre, ya que será 
+ * el componente padre (CatalogueContainer) en donde se guarde el 
+ * estado del texto de busqueda y en donde se ejecute la petición
+ * a la pokeapi con dicho texto,  
+ */
 class SerchBars extends React.Component {
   constructor(props) {
     super(props);
@@ -29,6 +37,8 @@ class SerchBars extends React.Component {
               className="col-7 m-2 form-control mr-sm-2"
               type="text"
               placeholder="Search"
+              // procesamiento del texto en timpo real.
+              // la busqueda en la pokeapi solo es en minusculas y sin espacios
               value={String(this.props.filterText).trim().toLowerCase().replace(/[^\w|-]/, '')}
               onChange={this.handleTextChange}
             />
