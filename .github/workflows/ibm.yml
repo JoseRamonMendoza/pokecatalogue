@@ -23,7 +23,7 @@ env:
   REGISTRY_HOSTNAME: us.icr.io
   IMAGE_NAME: pokecatalogue_image
   IKS_CLUSTER: c3mij90d0ufcurclvhn0
-  DEPLOYMENT_NAME: pokecatalogue_deploy
+  DEPLOYMENT_NAME: pokecatalogue.deploy
   PORT: 3000
 
 jobs:
