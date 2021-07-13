@@ -1,5 +1,5 @@
 # pull official base image
-FROM node:apline
+FROM node:16-slim
 
 # set working directory
 WORKDIR /app
