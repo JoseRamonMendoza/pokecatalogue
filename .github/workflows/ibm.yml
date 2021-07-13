@@ -25,7 +25,6 @@ env:
   IKS_CLUSTER: c3mij90d0ufcurclvhn0
   DEPLOYMENT_NAME: pokecatalogue
   PORT: 3000
-  RESOURCE_GROUP: pokecatalogue
 
 jobs:
   setup-build-publish-deploy:
@@ -49,7 +48,7 @@ jobs:
     # Authenticate with IBM Cloud CLI
     - name: Authenticate with IBM Cloud CLI
       run: |
-        ibmcloud login --apikey "${IBM_CLOUD_API_KEY}" -r "${IBM_CLOUD_REGION}" -g "${RESOURCE_GROUP}"
+        ibmcloud login --apikey "${IBM_CLOUD_API_KEY}" -r "${IBM_CLOUD_REGION}" -g default
         ibmcloud cr region-set "${IBM_CLOUD_REGION}"
         ibmcloud cr login
 
