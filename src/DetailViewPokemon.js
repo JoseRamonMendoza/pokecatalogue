@@ -10,7 +10,7 @@ class DetailViewPokemon extends React.Component {
         return (
             <div className="col-12 d-flex justify-content-center" id={pokeJson.id} key={pokeJson.id}>
                 <div className='card m-1 col-12' style={{backgroundColor: '#F0F0C9' }}>
-                    <img className="card-img-top text-center" src={pokeJson.sprites.front_default} alt={`${pokeJson.name}.png`} />
+                    <img className="card-img-top text-center"  src={pokeJson.sprites.front_default} alt={`${pokeJson.name}.png`} />
                     <div className="card-body">
                         <h5 className="card-title text-center text-capitalize">{pokeJson.name}</h5>
                         <h5 className="card-title text-center text-capitalize">{`Id: ${pokeJson.id}`}</h5>
