@@ -23,6 +23,7 @@ env:
   IKS_CLUSTER: c3mij90d0ufcurclvhn0
   DEPLOYMENT_NAME: pokecatalogue
   PORT: 3000
+  RESOURCE_GROUP: pokecatalogue
 
 jobs:
   setup-build-publish-deploy:
