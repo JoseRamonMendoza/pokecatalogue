@@ -20,7 +20,7 @@ env:
   IBM_CLOUD_API_KEY: ${{ secrets.IBM_CLOUD_API_KEY }}
   IBM_CLOUD_REGION: us-south
   ICR_NAMESPACE: ${{ secrets.ICR_NAMESPACE }}
-  REGISTRY_HOSTNAME: icr.io
+  REGISTRY_HOSTNAME: us.icr.io
   IMAGE_NAME: pokecatalogue
   IKS_CLUSTER: c3mij90d0ufcurclvhn0
   DEPLOYMENT_NAME: pokecatalogue
