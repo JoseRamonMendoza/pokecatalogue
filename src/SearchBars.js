@@ -8,7 +8,7 @@ import React from 'react';
  * estado del texto de busqueda y en donde se ejecute la petición
  * a la pokeapi con dicho texto,  
  */
-class SerchBars extends React.Component {
+class SearchBars extends React.Component {
   constructor(props) {
     super(props);
     this.handleTextChange = this.handleTextChange.bind(this);
@@ -39,7 +39,7 @@ class SerchBars extends React.Component {
               placeholder="Search"
               // procesamiento del texto en timpo real.
               // la busqueda en la pokeapi solo es en minusculas y sin espacios
-              value={String(this.props.filterText).trim().toLowerCase().replace(/[^\w|-]/, '')}
+              value={String(this.props.searchText).trim().toLowerCase().replace(/[^\w|-]/, '')}
               onChange={this.handleTextChange}
             />
             <button
@@ -54,4 +54,4 @@ class SerchBars extends React.Component {
 }
 
 
-export default SerchBars;
+export default SearchBars;
