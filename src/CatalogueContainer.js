@@ -27,6 +27,7 @@ export default function CatalogueContainer() {
 
     // estado necesario para la lógica
     const [pokemones, setPokemones] = useState([])
+    const [pokeJson, setPokeJson] = useState(null)
 
 
 
@@ -49,6 +50,7 @@ export default function CatalogueContainer() {
         axios.get(`https://pokeapi.co/api/v2/pokemon?limit=${perPage}&offset=${offset}`)
             .then(result => {
                 fetchPokemones(result.data.results)
+                setPokeJson(result.data.results)
             })
             .catch(console.error)
     }, [currentPage])
@@ -56,7 +58,7 @@ export default function CatalogueContainer() {
     // fetch donde obtengo la información detallada de cada pokemon
     // de la página actual
     function fetchPokemones(pokeJson){
-        if(!pokeJson) return
+        if(!pokeJson) return;
 
         const data = [];
         const promise = pokeJson.map(pokemon => 
@@ -108,7 +110,7 @@ export default function CatalogueContainer() {
 
 
 
-            <div className="row">
+            <div className="row justify-content-center">
                 {
                     pokemones.length > 1 ? 
                     pokemones.map(pokemon => {
@@ -121,9 +123,10 @@ export default function CatalogueContainer() {
                     }) :
                     pokemones.length === 1 &&
                     <DetailViewPokemon
-                        pokeJson={pokemones[0]}
+                        pokemon={pokemones[0]}
                         onFilterTextChange={handleSearchTextChange}
-                        onSearchAction={handleSearchAction}
+                        onSearchAction={fetchPokemones}
+                        pokeJson={pokeJson}
                     />
                 }
             </div>
