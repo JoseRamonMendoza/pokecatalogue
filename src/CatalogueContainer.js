@@ -12,6 +12,7 @@ import GeneralViewPokemon from './GeneralViewPokemon';
 import FancyJumbotron from './FancyJumbotron';
 import SearchBars from './SearchBars';
 import DetailViewPokemon from './DetailViewPokemon';
+import PokemonMoves from './PokemonMoves';
 
 // Componente principal, este componente engloba todos los demas
 // y es el componente padre en donde se define el 'state' y 
@@ -122,12 +123,17 @@ export default function CatalogueContainer() {
                         />
                     }) :
                     pokemones.length === 1 &&
+                    <div>
                     <DetailViewPokemon
                         pokemon={pokemones[0]}
                         onFilterTextChange={handleSearchTextChange}
                         onSearchAction={fetchPokemones}
                         pokeJson={pokeJson}
+                    /> 
+                    <PokemonMoves 
+                        pokemon={pokemones[0]}
                     />
+                    </div>
                 }
             </div>
 

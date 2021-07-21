@@ -14,7 +14,10 @@ export default function DetailViewPokemon(props){
         <React.Fragment key={pokemon.id}>
             <div className="card d-flex flex-wrap flex-row" style={{backgroundColor:"#F0F0C9", maxWidth:"60rem"}} key={pokemon.id}>
 
-                <img className="col-md-4 " src={pokemon.sprites.front_default} alt={`${pokemon.name}.png`} />
+                <img 
+                    className="col-md-4 " 
+                    src={pokemon.sprites.front_default} 
+                    alt={`${pokemon.name}.png`} />
 
                 <div className="col-md-8 card-body ">
                     <div className="row align-items-center ">
@@ -36,11 +39,6 @@ export default function DetailViewPokemon(props){
                         )}
                     </div>
                 </div>
-            </div>
-            
-
-            <div className="card">
-                
             </div>
         </React.Fragment>
     )

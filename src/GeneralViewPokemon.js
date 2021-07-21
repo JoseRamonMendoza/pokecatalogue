@@ -37,7 +37,10 @@ class GeneralViewPokemon extends React.Component {
                     className='card m-1' 
                     id="generalViewPokemonDiv"
                 >
-                    <img className="card-img-top text-center" src={pokeJson.sprites.front_default} alt={`${pokeJson.name}.png`} />
+                    <img 
+                        className="card-img-top text-center" 
+                        src={pokeJson.sprites.front_default} 
+                        alt={`${pokeJson.name}.png`} />
                     <div className="card-body">
                         <h5 className="card-title text-center text-capitalize">{pokeJson.name}</h5>
                         <h5 className="card-title text-center text-capitalize">{`Id: ${pokeJson.id}`}</h5>
