@@ -37,7 +37,7 @@ export default function PokemonMoves(props){
                             props.pokemon.moves.length !== 0 ? 
                             props.pokemon.moves.map((pokemon) =>
                                 <div 
-                                    className="col-3 d-flex align-pokemons-center p-1"
+                                    className="col-md-3 col-xs-6 d-flex align-pokemons-center p-1"
                                     key={pokemon.move.name}
                                 >
                                     <input 
