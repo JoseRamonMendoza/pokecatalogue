@@ -13,7 +13,9 @@ export default function DetailViewPokemon(props){
 
     return(
         <React.Fragment key={props.pokemon.id}>
-            <div className="card d-flex flex-wrap flex-row" style={{backgroundColor:"#F0F0C9", maxWidth:"60rem"}} key={props.pokemon.id}>
+            <div 
+                className="card detail-card d-flex flex-wrap flex-row" 
+                key={props.pokemon.id}>
 
                 <img 
                     className="col-md-4 " 
@@ -23,7 +25,7 @@ export default function DetailViewPokemon(props){
                 <div className="col-md-8 card-body ">
                     <div className="row mx-0 d-flex flex-wrap justify-content-around ">
                         <button
-                          className="order-2 col-sm-4 btn btn-outline-success "
+                          className=" col-sm-4 h-25 align-self-center order-2 btn btn-outline-success "
                           onClick={() => handleClick() }
                         >Return</button> 
 

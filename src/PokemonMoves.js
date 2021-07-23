@@ -25,8 +25,7 @@ export default function PokemonMoves(props){
     return (
         <React.Fragment>
             <form 
-                className="card " 
-                style={{backgroundColor:"#F0F0C9", maxWidth:"60rem"}}
+                className=" card detail-card " 
                 onSubmit={() => handleSubmitAction() }
             >
                 <div className="card-body ">
