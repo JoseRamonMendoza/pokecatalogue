@@ -1,20 +1,16 @@
-# pull official base image
-FROM node:16-slim
+# Dockerfile tomado del video tutorial en
+# https://www.youtube.com/watch?v=-ANCcFQBk6I
+FROM node:15.4 as build
 
-# set working directory
 WORKDIR /app
 
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
 
-# install app dependencies
-COPY package.json ./
-COPY package-lock.json ./
-RUN npm install --silent
-RUN npm install react-scripts@3.4.1 -g --silent
 
-# add app
-COPY . ./
+FROM nginx:1.19
 
-# start app
-CMD ["npm", "start"]
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+COPY --from=build /app/build /usr/share/nginx/html
