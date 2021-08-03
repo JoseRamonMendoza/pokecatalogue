@@ -3,7 +3,27 @@ import React, {useState } from 'react';
 export default function PokemonMoves(props){
     const [movesChecked, setMovesChecked] = useState([])
 
-    function handleSubmitAction() {
+    function handleSumbitAction() {
+        const types = props.pokemon.types.map(item => " " + item.type.name);
+
+        let config = {
+            method: 'POST',
+            header: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: props.pokemon.id,
+                name: props.pokemon.name,
+                types: types,
+                moves: movesChecked,
+            })
+        }
+
+        fetch('http://localhost/json', config)
+        .then(response => {
+            console.log(response)
+        })
     }
 
     function steamrollArray(arr) {
@@ -26,7 +46,7 @@ export default function PokemonMoves(props){
         <React.Fragment>
             <form 
                 className=" card detail-card " 
-                onSubmit={() => handleSubmitAction() }
+                onSubmit={() => handleSumbitAction() }
             >
                 <div className="card-body ">
                     <h3 className="card-title">{`Moves of ${props.pokemon.name}`}</h3>
